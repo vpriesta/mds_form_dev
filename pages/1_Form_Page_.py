@@ -168,6 +168,10 @@ for sec in sections:
     if sec not in st.session_state:
         st.session_state[sec] = st.session_state.form_data[sec]
 
+if st.button("⬅️ Kembali ke Dashboard"):
+    st.session_state["page"] = "dashboard"
+    st.session_state.pop("edit_activity_id", None)  # optional reset edit mode
+    st.rerun()
 # ===== Page tabs =====
 tab1, tab2, tab3 = st.tabs(["📘 MS Kegiatan", "📊 MS Indikator", "📈 MS Variabel"])
 
