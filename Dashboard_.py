@@ -54,7 +54,7 @@ if st.sidebar.button("🚪 Logout"):
         del st.session_state[key]
     st.rerun()
 
-st.set_page_config(page_title="Activity Dashboard", page_icon="📋", layout="wide")
+st.set_page_config(page_title="Kegiatan Statistik", page_icon="📋", layout="wide")
 
 # === Fetch activities from Supabase ===
 # For non-verifier: list user's own activities
