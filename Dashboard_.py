@@ -11,6 +11,23 @@ from gsheet_client import (
     delete_activity,
 )
 
+def reset_form_state():
+    keys_to_reset = [
+        "halaman_awal",
+        "blok_1_3",
+        "variables",
+        "blok_4",
+        "blok_5",
+        "blok_6_8",
+        "indicators",
+        "form_data",
+        "current_activity_id"
+    ]
+
+    for key in keys_to_reset:
+        if key in st.session_state:
+            del st.session_state[key]
+
 # --- Function to hash passwords (kept as-is) ---
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -144,9 +161,11 @@ else:
             col1, col2 = st.columns(2)
             with col1:
                 if st.button("✏️ Edit", key=f"edit_{idx}"):
+                    reset_form_state()
                     # Put the activity id into session and navigate
                     st.session_state.edit_activity_id = item.get("activity_id")
                     st.switch_page("pages/1_Form_Page_.py")
+                    st.rerun()
 
             with col2:
                 if st.button("🗑️ Hapus", key=f"delete_{idx}"):
@@ -164,5 +183,6 @@ else:
 st.markdown("---")
 
 if st.button("➕ Tambah Kegiatan"):
+    reset_form_state()
     st.session_state.edit_activity_id = None
     st.switch_page("pages/1_Form_Page_.py")
