@@ -1,7 +1,11 @@
 import streamlit as st
 from datetime import datetime
+from zoneinfo import ZoneInfo
 import uuid
 from gsheet_client import (get_activity, upsert_activity, mark_status)
+
+def now_jakarta():
+    return datetime.now(ZoneInfo("Asia/Jakarta"))
 
 st.set_page_config(page_title="Formulir MS Kegiatan", page_icon="📝", layout="wide")
 
@@ -1187,7 +1191,7 @@ if st.button("💾 Simpan Semua Progress", disabled = is_readonly):
         "activity_id": st.session_state.current_activity_id,
         "owner": username,
         "status": st.session_state.form_data.get("status", "Draft"),
-        "last_saved": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 
+        "last_saved": now_jakarta().strftime("%Y-%m-%d %H:%M:%S"), 
         
         # all sections 
         "halaman_awal": st.session_state.form_data["halaman_awal"],
