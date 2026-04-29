@@ -42,12 +42,12 @@ if not st.session_state.authenticated:
             st.success(f"Welcome back, {username_input}!")
             st.rerun()
         else:
-            st.error("Invalid username or password")
+            st.error("Invalid username atau password")
 
     st.stop()  # Prevent rest of dashboard until logged in
 
 # --- ✅ Sidebar / Logout (kept as-is) ---
-st.sidebar.markdown(f"👤 **Logged in as:** {st.session_state.username}")
+st.sidebar.markdown(f"👤 **Masuk sebagai:** {st.session_state.username}")
 st.sidebar.markdown(f"🛡️ **Role:** {st.session_state.role}")
 if st.sidebar.button("🚪 Logout"):
     for key in list(st.session_state.keys()):
@@ -125,21 +125,21 @@ def status_color(status):
     else:
         return "❓"
 
-st.title("📋 Activity Dashboard")
-st.markdown("View and manage your saved or submitted activities below.")
+st.title("📋 Kegiatan Statistik")
+# st.markdown("View and manage your saved or submitted activities below.")
 
 if not form_list:
-    st.info("No activities yet. Click **New Activity** below to start.")
+    st.info("Belum ada Kegiatan Statistik. Klik **Tambah Kegiatan** untuk memulai")
 else:
     for idx, item in enumerate(form_list):
-        activity_title = item.get("title", "(Untitled Activity)")
+        activity_title = item.get("title", "(Tanpa Judul)")
         status = item.get("status", "Draft")
         last_saved = item.get("last_saved", "Unknown")
 
         with st.expander(f"{status_color(status)} {activity_title}", expanded=False):
             st.write(f"**Status:** {status}")
-            st.write(f"**Owner:** {item.get('owner', 'unknown')}")
-            st.write(f"**Last Saved:** {last_saved}")
+            st.write(f"**Produsen Data:** {item.get('owner', 'unknown')}")
+            st.write(f"**Terakhir Disimpan:** {last_saved}")
 
             col1, col2 = st.columns(2)
             with col1:
@@ -149,20 +149,20 @@ else:
                     st.switch_page("pages/1_Form_Page_.py")
 
             with col2:
-                if st.button("🗑️ Delete", key=f"delete_{idx}"):
+                if st.button("🗑️ Hapus", key=f"delete_{idx}"):
                     aid = item.get("activity_id")
                     if not aid:
-                        st.error("Cannot delete: missing activity id.")
+                        st.error("Tidak dapat menghapus: activity id tidak terdeteksi")
                     else:
                         ok = delete_activity(aid)
                         if ok:
-                            st.success("Deleted successfully.")
+                            st.success("Terhapus")
                         else:
-                            st.error("Failed to delete activity.")
+                            st.error("Gagal menghapus kegiatan")
                         st.rerun()
 
 st.markdown("---")
 
-if st.button("➕ New Activity"):
+if st.button("➕ Tambah Kegiatan"):
     st.session_state.edit_activity_id = None
     st.switch_page("pages/1_Form_Page_.py")
