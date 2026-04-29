@@ -131,8 +131,6 @@ if not edit_id:
             "verified_by": "",
             "verifier_comment": "",
         }
-
-st.write("### 📄 Activity Form")
     
 if is_readonly: 
     st.info(f"This activity has been **{status}** and cannot be edited.") 
@@ -1176,7 +1174,7 @@ with tab3:
     else:
         st.info("Belum ada variabel yang terdeteksi pada MS Kegiatan. Input daftar variabel pada MS Kegiatan BLOK 3")
     
-if st.button("💾 Simpan Semua Progress", disabled = is_readonly): 
+if st.button("💾 Simpan Progres", disabled = is_readonly): 
      
     # ✅ Sync semua section ke form_data dulu
     st.session_state.form_data["halaman_awal"] = st.session_state.get("halaman_awal", {})
