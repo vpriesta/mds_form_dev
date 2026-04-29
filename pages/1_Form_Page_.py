@@ -1177,6 +1177,16 @@ with tab3:
         st.info("Belum ada variabel yang terdeteksi pada MS Kegiatan. Input daftar variabel pada MS Kegiatan BLOK 3")
     
 if st.button("💾 Simpan Semua Progress", disabled = is_readonly): 
+     
+    # ✅ Sync semua section ke form_data dulu
+    st.session_state.form_data["halaman_awal"] = st.session_state.get("halaman_awal", {})
+    st.session_state.form_data["blok_1_3"] = st.session_state.get("blok_1_3", {})
+    st.session_state.form_data["variables"] = st.session_state.get("variables", [])
+    st.session_state.form_data["blok_4"] = st.session_state.get("blok_4", {})
+    st.session_state.form_data["blok_5"] = st.session_state.get("blok_5", {})
+    st.session_state.form_data["blok_6_8"] = st.session_state.get("blok_6_8", {})
+    st.session_state.form_data["indicators"] = st.session_state.get("indicators", [])
+    
     combined_entry = {
         "activity_id": st.session_state.current_activity_id,
         "owner": username,
@@ -1184,13 +1194,13 @@ if st.button("💾 Simpan Semua Progress", disabled = is_readonly):
         "last_saved": datetime.now().strftime("%Y-%m-%d %H:%M:%S"), 
         
         # all sections 
-        "halaman_awal": st.session_state.halaman_awal, 
-        "blok_1_3": st.session_state.blok_1_3, 
-        "variables": st.session_state.variables, 
-        "blok_4": st.session_state.blok_4, 
-        "blok_5": st.session_state.blok_5, 
-        "blok_6_8": st.session_state.blok_6_8, 
-        "indicators": st.session_state.indicators, 
+        "halaman_awal": st.session_state.form_data["halaman_awal"],
+        "blok_1_3": st.session_state.form_data["blok_1_3"],
+        "variables": st.session_state.form_data["variables"],
+        "blok_4": st.session_state.form_data["blok_4"],
+        "blok_5": st.session_state.form_data["blok_5"],
+        "blok_6_8": st.session_state.form_data["blok_6_8"],
+        "indicators": st.session_state.form_data["indicators"], 
         
         # metadata 
         "revision_note": st.session_state.form_data.get("revision_note", ""),
