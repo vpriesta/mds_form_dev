@@ -137,12 +137,12 @@ else:
 
 
 if edit_id and notes:
-    st.info(f"ℹ️ Catatan Revisi:\n{notes}\n\nTanggal Pemeriksaan: {datetime.fromisoformat(verif_date).date().strftime("%d %B %Y")}")
+    st.info(f"ℹ️ Catatan Revisi:\n{notes}\n\nTanggal Pemeriksaan: {datetime.fromisoformat(verif_date).date().strftime('%d %B %Y')}")
 
 if edit_id and status == "rejected":
-    st.warning(f"❌ Alasan Ditolak:\n{rn}\n\nTanggal Ditolak: {datetime.fromisoformat(reject_date).date().strftime("%d %B %Y")}")
+    st.warning(f"❌ Alasan Ditolak:\n{rn}\n\nTanggal Ditolak: {datetime.fromisoformat(reject_date).date().strftime('%d %B %Y')}")
 elif edit_id and status == "verified":
-    st.success(f"✅ Metadata telah diverifikasi dan diterima\n\nTanggal Diterima: {datetime.fromisoformat(verified_at).date().strftime("%d %B %Y")}")
+    st.success(f"✅ Metadata telah diverifikasi dan diterima\n\nTanggal Diterima: {datetime.fromisoformat(verified_at).date().strftime('%d %B %Y')}")
 
 # =====================================================
 # 6️⃣ ALWAYS GUARANTEE FORM STRUCTURE (FIXED VERSION)
