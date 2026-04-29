@@ -174,105 +174,101 @@ tab1, tab2, tab3 = st.tabs(["📘 MS Kegiatan", "📊 MS Indikator", "📈 MS Va
 # ============================
 with tab1:
     st.header("📘 MS Kegiatan")
+    st.subheader("🧾 Halaman Awal")
 
-    with st.form("form_halaman_awal"):
-        st.subheader("🧾 Halaman Awal")
+    # 1. Jenis Statistik
+    jenis_options = ["Statistik Dasar", "Statistik Sektoral", "Statistik Khusus"]
+    stored_value = st.session_state["halaman_awal"].get("jenis_statistik", "")
+    jenis_statistik = st.radio(
+        "Jenis Statistik",
+        jenis_options,
+        index = jenis_options.index(stored_value) if stored_value in jenis_options else None,
+        key="jenis_statistik",
+        horizontal=True,
+        disabled = is_readonly
+    )
+    st.session_state["halaman_awal"]["jenis_statistik"] = jenis_statistik
 
-        # 1. Jenis Statistik
-        jenis_options = ["Statistik Dasar", "Statistik Sektoral", "Statistik Khusus"]
-        stored_value = st.session_state["halaman_awal"].get("jenis_statistik", "")
-        jenis_statistik = st.radio(
-            "Jenis Statistik",
-            jenis_options,
-            index = jenis_options.index(stored_value) if stored_value in jenis_options else None,
-            key="jenis_statistik",
-            horizontal=True,
-            disabled = is_readonly
-        )
-        st.session_state["halaman_awal"]["jenis_statistik"] = jenis_statistik
+    # 2. Rekomendasi
+    rekomendasi_options = ["Ya", "Tidak"]
+    stored_value = st.session_state["halaman_awal"].get("rekomendasi", "")
+    rekomendasi = st.radio(
+        "Apakah kegiatan ini merupakan rekomendasi?",
+        rekomendasi_options,
+        index = rekomendasi_options.index(stored_value) if stored_value in rekomendasi_options else None,
+        key="rekomendasi",
+        horizontal=True,
+        disabled = is_readonly            
+    )
+    st.session_state["halaman_awal"]["rekomendasi"] = rekomendasi
 
-        # 2. Rekomendasi
-        rekomendasi_options = ["Ya", "Tidak"]
-        stored_value = st.session_state["halaman_awal"].get("rekomendasi", "")
-        rekomendasi = st.radio(
-            "Apakah kegiatan ini merupakan rekomendasi?",
-            rekomendasi_options,
-            index = rekomendasi_options.index(stored_value) if stored_value in rekomendasi_options else None,
-            key="rekomendasi",
-            horizontal=True,
-            disabled = is_readonly            
-        )
-        st.session_state["halaman_awal"]["rekomendasi"] = rekomendasi
+    if rekomendasi == "Ya":
+        rekomendasi_id = st.text_input("Masukkan ID Rekomendasi", value=st.session_state["halaman_awal"].get("rekomendasi_id", ""), placeholder="Wajib diisi jika kegiatan ini adalah rekomendasi", disabled = is_readonly
+                                      )
+    else:
+        rekomendasi_id = st.text_input("Masukkan ID Rekomendasi", value="", placeholder="Wajib diisi jika kegiatan ini adalah rekomendasi", disabled = is_readonly)
+    st.session_state["halaman_awal"]["rekomendasi_id"] = rekomendasi_id
 
-        if rekomendasi == "Ya":
-            rekomendasi_id = st.text_input("Masukkan ID Rekomendasi", value=st.session_state["halaman_awal"].get("rekomendasi_id", ""), placeholder="Wajib diisi jika kegiatan ini adalah rekomendasi", disabled = is_readonly
-                                          )
-        else:
-            rekomendasi_id = st.text_input("Masukkan ID Rekomendasi", value="", placeholder="Wajib diisi jika kegiatan ini adalah rekomendasi", disabled = is_readonly)
-        st.session_state["halaman_awal"]["rekomendasi_id"] = rekomendasi_id
+    # 3. Judul
+    judul = st.text_input("Judul Kegiatan", value=st.session_state["halaman_awal"].get("judul", None), key = "judul", disabled = is_readonly)
+    st.session_state["halaman_awal"]["judul"] = judul
 
-        # 3. Judul
-        judul = st.text_input("Judul Kegiatan", value=st.session_state["halaman_awal"].get("judul", None), key = "judul", disabled = is_readonly)
-        st.session_state["halaman_awal"]["judul"] = judul
+    # 4. Tahun
+    tahun = st.number_input("Tahun", min_value=0, max_value=3000, step=1, value=st.session_state["halaman_awal"].get("tahun", 0), key = "tahun", disabled = is_readonly)
+    st.session_state["halaman_awal"]["tahun"] = tahun
 
-        # 4. Tahun
-        tahun = st.number_input("Tahun", min_value=0, max_value=3000, step=1, value=st.session_state["halaman_awal"].get("tahun", 0), key = "tahun", disabled = is_readonly)
-        st.session_state["halaman_awal"]["tahun"] = tahun
+    # 5. Cara Pengumpulan
+    pengumpulan_options = ["Pencacahan Lengkap", "Survei", "Kompilasi Produk Administrasi", "Cara Lain Sesuai dengan Perkembangan TI"]
+    stored_value = st.session_state["halaman_awal"].get("cara_pengumpulan", "")
+    cara_pengumpulan = st.selectbox(
+        "Cara Pengumpulan Data",
+        pengumpulan_options,
+        index = pengumpulan_options.index(stored_value) if stored_value in pengumpulan_options else None,
+        key="cara_pengumpulan",
+        disabled = is_readonly
+    )
+    st.session_state["halaman_awal"]["cara_pengumpulan"] = cara_pengumpulan
 
-        # 5. Cara Pengumpulan
-        pengumpulan_options = ["Pencacahan Lengkap", "Survei", "Kompilasi Produk Administrasi", "Cara Lain Sesuai dengan Perkembangan TI"]
-        stored_value = st.session_state["halaman_awal"].get("cara_pengumpulan", "")
-        cara_pengumpulan = st.selectbox(
-            "Cara Pengumpulan Data",
-            pengumpulan_options,
-            index = pengumpulan_options.index(stored_value) if stored_value in pengumpulan_options else None,
-            key="cara_pengumpulan",
-            disabled = is_readonly
-        )
-        st.session_state["halaman_awal"]["cara_pengumpulan"] = cara_pengumpulan
+    # 6. Sektor
+    sektor_options = ["Pertanian dan Perikanan", "Demografi dan Kependudukan", "Pembangunan", "Proyeksi Ekonomi", "Pendidikan dan Pelatihan",
+            "Lingkungan", "Keuangan", "Globalisasi", "Kesehatan", "Industri dan Jasa",
+            "Teknologi Informasi dan Komunikasi", "Perdagangan Internasional dan Neraca Perdagangan", "Ketenagakerjaan", "Neraca Nasional",
+            "Indikator Ekonomi Bulanan", "Produktivitas", "Harga dan Paritas Daya Beli", 
+            "Sektor Publik, Perpajakan, dan Regulasi Pasar", "Perwilayahan dan Perkotaan",
+            "Ilmu Pengetahuan dan Hak Paten", "Perlindungan Sosial dan Kesejahteraan", "Transportasi"]
+    stored_value = st.session_state["halaman_awal"].get("sektor", "")
+    sektor = st.selectbox(
+        "Sektor",
+        sektor_options,
+        index = sektor_options.index(stored_value) if stored_value in sektor_options else None,
+        key="sektor",
+        disabled = is_readonly
+    )
+    st.session_state["halaman_awal"]["sektor"] = sektor
 
-        # 6. Sektor
-        sektor_options = ["Pertanian dan Perikanan", "Demografi dan Kependudukan", "Pembangunan", "Proyeksi Ekonomi", "Pendidikan dan Pelatihan",
-                "Lingkungan", "Keuangan", "Globalisasi", "Kesehatan", "Industri dan Jasa",
-                "Teknologi Informasi dan Komunikasi", "Perdagangan Internasional dan Neraca Perdagangan", "Ketenagakerjaan", "Neraca Nasional",
-                "Indikator Ekonomi Bulanan", "Produktivitas", "Harga dan Paritas Daya Beli", 
-                "Sektor Publik, Perpajakan, dan Regulasi Pasar", "Perwilayahan dan Perkotaan",
-                "Ilmu Pengetahuan dan Hak Paten", "Perlindungan Sosial dan Kesejahteraan", "Transportasi"]
-        stored_value = st.session_state["halaman_awal"].get("sektor", "")
-        sektor = st.selectbox(
-            "Sektor",
-            sektor_options,
-            index = sektor_options.index(stored_value) if stored_value in sektor_options else None,
-            key="sektor",
-            disabled = is_readonly
-        )
-        st.session_state["halaman_awal"]["sektor"] = sektor
-
-        submit_halaman_awal = st.form_submit_button("💾 Simpan Halaman Awal", disabled = is_readonly)
-
-        if submit_halaman_awal: 
-            new_entry = {
-                "halaman_awal" : {
-                    "jenis_statistik": jenis_statistik,
-                    "rekomendasi": rekomendasi,
-                    "rekomendasi_id": rekomendasi_id,
-                    "judul": judul,
-                    "tahun": tahun,
-                    "cara_pengumpulan": cara_pengumpulan,
-                    "sektor": sektor,
-                    "status": "Draft",
-                    "last_saved": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                }
-            } 
-            success = save_form(
-                activity_id=st.session_state.current_activity_id, 
-                username=username, 
-                data=new_entry,) 
-            
-            if success: 
-                st.success("✅ Tersimpan!") 
-            else: 
-                st.error("❌ Gagal menyimpan")
+    # if submit_halaman_awal: 
+    #     new_entry = {
+    #         "halaman_awal" : {
+    #             "jenis_statistik": jenis_statistik,
+    #             "rekomendasi": rekomendasi,
+    #             "rekomendasi_id": rekomendasi_id,
+    #             "judul": judul,
+    #             "tahun": tahun,
+    #             "cara_pengumpulan": cara_pengumpulan,
+    #             "sektor": sektor,
+    #             "status": "Draft",
+    #             "last_saved": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    #         }
+    #     } 
+    #     success = save_form(
+    #         activity_id=st.session_state.current_activity_id, 
+    #         username=username, 
+    #         data=new_entry,) 
+        
+    #     if success: 
+    #         st.success("✅ Tersimpan!") 
+    #     else: 
+    #         st.error("❌ Gagal menyimpan")
     
 
     if "blok_1_3" not in st.session_state:
