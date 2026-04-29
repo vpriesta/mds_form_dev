@@ -169,7 +169,7 @@ for sec in sections:
         st.session_state[sec] = st.session_state.form_data[sec]
 
 if st.button("⬅️ Kembali ke Dashboard"):
-    st.switch_page("pages/Dashboard_.py")
+    st.switch_page("Dashboard_.py")
     st.session_state.pop("edit_activity_id", None)  # optional reset edit mode
     st.rerun()
 # ===== Page tabs =====
