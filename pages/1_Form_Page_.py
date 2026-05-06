@@ -1243,7 +1243,7 @@ if role == "verifier":
 
         if st.button("📝 Request Revision"):
             ok, _ = upsert_activity(
-                        activity_id=st.session_state.activity_id,
+                        activity_id=st.session_state.current_activity_id,
                         username=st.session_state["username"],
                         data={
                             **st.session_state.form_data,
@@ -1260,7 +1260,7 @@ if role == "verifier":
 
         if st.button("✅ Accept"):
             ok, _ = upsert_activity(
-                        activity_id=st.session_state.activity_id,
+                        activity_id=st.session_state.current_activity_id,
                         username=st.session_state["username"],
                         data={
                             **st.session_state.form_data,
@@ -1277,7 +1277,7 @@ if role == "verifier":
 
         if st.button("❌ Reject"):
             ok, _ = upsert_activity(
-                        activity_id=st.session_state.activity_id,
+                        activity_id=st.session_state.current_activity_id,
                         username=st.session_state["username"],
                         data={
                             **st.session_state.form_data,
