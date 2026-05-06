@@ -1244,6 +1244,7 @@ if role == "verifier":
         if st.button("📝 Request Revision"):
             data["verifier_comment"] = notes
             data["revision_requested_at"] = datetime.now().isoformat()
+            data["status"] = "revision_requested"
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
@@ -1259,6 +1260,7 @@ if role == "verifier":
 
         if st.button("✅ Accept"):
             data["verified_at"] = datetime.now().isoformat()
+            data["status"] = "verified"
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
@@ -1274,6 +1276,7 @@ if role == "verifier":
         if st.button("❌ Reject"):
             data["verifier_comment"] = notes,
             data["rejected_at"] = datetime.now().isoformat()
+            data["status"] = "rejected"
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
