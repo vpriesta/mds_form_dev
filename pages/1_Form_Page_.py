@@ -1232,17 +1232,13 @@ with col_form:
             st.rerun() 
         else: 
             st.error("❌ Submit gagal.")
-    
-    # role = st.session_state.get("role", "user")
-# status = st.session_state.form_data.get("status", "draft")
 
 with col_verif:
-     st.markdown(
+    st.markdown(
         """
         <div style="position: sticky; top: 20px;">
         """,
-        unsafe_allow_html=True
-    )
+        unsafe_allow_html=True)
     role = st.session_state.get("role", "user")
     # status = st.session_state.form_data.get("status", "draft")
 
@@ -1301,67 +1297,3 @@ with col_verif:
             st.rerun()
             
     st.markdown("</div>", unsafe_allow_html=True)
-
-
-# if role == "verifier":
-#     st.divider()
-#     st.subheader("🔍 Verifikasi")
-
-#     # tampilkan status
-#     # st.info(f"Status saat ini: {status.upper()}")
-
-#     # komentar verifier
-#     notes = st.text_area(
-#         "Catatan / Komentar",
-#         value=st.session_state.form_data.get("verifier_comment", ""),
-#         key="verifier_comment"
-#     )
-
-#     col1, col2, col3 = st.columns(3)
-
-#     with col1:
-#         if st.button("✅ Accept"):
-#             # SAVE dulu biar perubahan ikut ke-save
-#             save_form(
-#                 activity_id=st.session_state.current_activity_id,
-#                 username=st.session_state["username"],
-#                 data={
-#                     **st.session_state.form_data,
-#                     "verifier_comment": notes,
-#                     "verified_by": st.session_state["username"],
-#                     "verified_at": datetime.now().isoformat(),
-#                     "status": "verified"
-#                 }
-#             )
-#             st.success("Accepted ✅")
-#             st.rerun()
-
-#     with col2:
-#         if st.button("📝 Request Revision"):
-#             save_form(
-#                 activity_id=st.session_state.current_activity_id,
-#                 username=st.session_state["username"],
-#                 data={
-#                     **st.session_state.form_data,
-#                     "verifier_comment": notes,
-#                     "revision_requested_at": datetime.now().isoformat(),
-#                     "status": "revision_requested"
-#                 }
-#             )
-#             st.warning("Revision Request Sent 📝")
-#             st.rerun()
-
-#     with col3:
-#         if st.button("❌ Reject"):
-#             save_form(
-#                 activity_id=st.session_state.current_activity_id,
-#                 username=st.session_state["username"],
-#                 data={
-#                     **st.session_state.form_data,
-#                     "verifier_comment": notes,
-#                     "rejected_at": datetime.now().isoformat(),
-#                     "status": "rejected"
-#                 }
-#             )
-#             st.warning("Rejected ❌")
-#             st.rerun()
