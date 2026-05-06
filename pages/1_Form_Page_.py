@@ -1241,16 +1241,19 @@ if role == "verifier":
             value=st.session_state.form_data.get("verifier_comment", "")
         )
 
-        if st.button("💾 Simpan Perubahan"):
+        if st.button("📝 Request Revision"):
             save_form(
                 activity_id=st.session_state.current_activity_id,
                 username=st.session_state["username"],
                 data={
                     **st.session_state.form_data,
-                    "verifier_comment": notes
+                    "verifier_comment": notes,
+                    "revision_requested_at": datetime.now().isoformat(),
+                    "status" = "revision_requested"
                 }
             )
-            st.success("Tersimpan")
+            st.success("Request Sent")
+            st.rerun()
 
         if st.button("✅ Accept"):
             save_form(
@@ -1259,7 +1262,7 @@ if role == "verifier":
                 data={
                     **st.session_state.form_data,
                     "verifier_comment": notes,
-                    "verified_by": st.session_state["username"],
+                    # "verified_by": st.session_state["username"],
                     "verified_at": datetime.now().isoformat(),
                     "status": "verified"
                 }
