@@ -1244,7 +1244,7 @@ if role == "verifier":
         if st.button("📝 Request Revision"):
             data["verifier_comment"] = notes
             data["revision_requested_at"] = datetime.now().isoformat()
-            data["status"] = "revision_requested"
+            # data["status"] = "revision_requested"
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
@@ -1253,6 +1253,7 @@ if role == "verifier":
                         
                     )
             if ok:
+                st.session_state.form_data["status"] = "revision_requested"
                 st.warning(f"📝 Sent back for revision")
                 st.rerun()
             else:
@@ -1268,6 +1269,7 @@ if role == "verifier":
                         status="verified"
                     )
             if ok:
+                st.session_state.form_data["status"] = "verified"
                 st.success(f"✅ {title} verified.")
                 st.rerun()
             else:
@@ -1284,6 +1286,7 @@ if role == "verifier":
                         status="rejected"
                     )
             if ok:
+                st.session_state.form_data["status"] = "rejected"
                 st.error(f"❌ Rejected: {title}")
                 st.rerun()
             else:
