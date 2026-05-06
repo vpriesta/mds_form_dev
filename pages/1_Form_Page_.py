@@ -1230,3 +1230,54 @@ if st.button("📤 Submit", disabled = is_readonly):
         st.rerun() 
     else: 
         st.error("❌ Submit gagal.")
+
+role = st.session_state.get("role", "user")
+status = st.session_state.form_data.get("status", "draft")
+
+if role == "verifier":
+    st.divider()
+    st.subheader("🔍 Verifikasi")
+
+    # tampilkan status
+    st.info(f"Status saat ini: {status.upper()}")
+
+    # komentar verifier
+    notes = st.text_area(
+        "Catatan / Komentar",
+        value=st.session_state.form_data.get("verifier_comment", ""),
+        key="verifier_comment"
+    )
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        if st.button("✅ Accept"):
+            # SAVE dulu biar perubahan ikut ke-save
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"],
+                data={
+                    **st.session_state.form_data,
+                    "verifier_comment": notes,
+                    "verified_by": st.session_state["username"],
+                    "verified_at": datetime.now().isoformat(),
+                    "status": "verified"
+                }
+            )
+            st.success("Accepted ✅")
+            st.rerun()
+
+    with col2:
+        if st.button("❌ Reject"):
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"],
+                data={
+                    **st.session_state.form_data,
+                    "verifier_comment": notes,
+                    "rejected_at": datetime.now().isoformat(),
+                    "status": "rejected"
+                }
+            )
+            st.warning("Rejected ❌")
+            st.rerun()
