@@ -1231,14 +1231,14 @@ if st.button("📤 Submit", disabled = is_readonly):
         st.error("❌ Submit gagal.")
 
 role = st.session_state.get("role", "user")
-status = st.session_state.form_data.get("status", "draft")
+# status = st.session_state.form_data.get("status", "draft")
 
 if role == "verifier":
     st.divider()
     st.subheader("🔍 Verifikasi")
 
     # tampilkan status
-    st.info(f"Status saat ini: {status.upper()}")
+    # st.info(f"Status saat ini: {status.upper()}")
 
     # komentar verifier
     notes = st.text_area(
