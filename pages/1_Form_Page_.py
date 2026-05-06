@@ -1256,6 +1256,12 @@ if role == "verifier":
                         "status": "revision_requested"
                 }
             )
+            upsert_activity(
+                    activity_id=activity_id,
+                    user_id=act["user_id"],
+                    payload=data,
+                    status="revision_requested",
+                )
             st.warning(f"📝 Sent back for revision")
             st.rerun()
 
@@ -1272,6 +1278,12 @@ if role == "verifier":
                         "status": "verified"
                 }
             )
+            upsert_activity(
+                    activity_id=activity_id,
+                    user_id=act["user_id"],
+                    payload=data,
+                    status="verified",
+                )
             st.warning(f"✅ {judul} verified")
             st.rerun()
 
@@ -1288,5 +1300,11 @@ if role == "verifier":
                         "status": "rejected"
                 }
             )
+            upsert_activity(
+                    activity_id=activity_id,
+                    user_id=act["user_id"],
+                    payload=data,
+                    status="rejected",
+                )
             st.warning(f"❌ Rejected: {judul}")
             st.rerun()
