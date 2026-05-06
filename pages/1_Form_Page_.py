@@ -1242,11 +1242,11 @@ if role == "verifier":
         )
 
         if st.button("📝 Request Revision"):
+            data["verifier_comment"] = notes
+            data["revision_requested_at"] = datetime.now().isoformat()
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data["verifier_comment"] = notes,
-                        data["revision_requested_at"] = datetime.now().isoformat(),
                         payload=data,
                         status="revision_requested",
                         
@@ -1258,10 +1258,10 @@ if role == "verifier":
                 st.error("❌ Failed to update revision status.")
 
         if st.button("✅ Accept"):
+            data["verified_at"] = datetime.now().isoformat()
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data["verified_at"] = datetime.now().isoformat(),
                         payload=data,
                         status="verified"
                     )
@@ -1272,11 +1272,11 @@ if role == "verifier":
                 st.error("❌ Failed to verify.")
 
         if st.button("❌ Reject"):
+            data["verifier_comment"] = notes,
+            data["rejected_at"] = datetime.now().isoformat()
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data["verifier_comment"] = notes,
-                        data["rejected_at"] = datetime.now().isoformat(),
                         payload=data,
                         status="rejected"
                     )
