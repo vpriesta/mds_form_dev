@@ -1249,7 +1249,7 @@ if role == "verifier":
                     **st.session_state.form_data,
                     "verifier_comment": notes,
                     "revision_requested_at": datetime.now().isoformat(),
-                    "status" = "revision_requested"
+                    "status" : "revision_requested"
                 }
             )
             st.success("Request Sent")
