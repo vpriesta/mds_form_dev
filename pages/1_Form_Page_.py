@@ -1261,7 +1261,7 @@ if role == "verifier":
             # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=owner_id,
+                    user_id=username,
                     payload=data,
                     status="revision_requested",
                 )
@@ -1286,7 +1286,7 @@ if role == "verifier":
             # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=owner_id,
+                    user_id=username,
                     payload=data,
                     status="verified",
                 )
@@ -1311,7 +1311,7 @@ if role == "verifier":
             # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=owner_id,
+                    user_id=username,
                     payload=data,
                     status="rejected",
                 )
