@@ -1247,7 +1247,7 @@ if role == "verifier":
         if st.button("📝 Request Revision"):
             save_form(
                 activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"]
+                username=st.session_state["username"],
                 data={
                         **st.session_state.form_data,
                         "verifier_comment": notes,
@@ -1263,7 +1263,7 @@ if role == "verifier":
         if st.button("✅ Accept"):
             save_form(
                 activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"]
+                username=st.session_state["username"],
                 data={
                         **st.session_state.form_data,
                         # "verifier_comment": notes,
@@ -1279,7 +1279,7 @@ if role == "verifier":
         if st.button("❌ Reject"):
             save_form(
                 activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"]
+                username=st.session_state["username"],
                 data={
                         **st.session_state.form_data,
                         "verifier_comment": notes,
