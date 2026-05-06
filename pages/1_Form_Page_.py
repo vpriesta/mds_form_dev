@@ -1245,12 +1245,11 @@ if role == "verifier":
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data={
-                            **st.session_state.form_data,
-                            "verifier_comment": notes,
-                            "revision_requested_at": datetime.now().isoformat(),
-                            "status" : "revision_requested"
-                        }
+                        data["verifier_comment"] = notes,
+                        data["revision_requested_at"] = datetime.now().isoformat(),
+                        payload=data,
+                        status="revision_requested",
+                        
                     )
             if ok:
                 st.warning(f"📝 Sent back for revision")
@@ -1262,12 +1261,9 @@ if role == "verifier":
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data={
-                            **st.session_state.form_data,
-                            "verifier_comment": notes,
-                            "verified_at": datetime.now().isoformat(),
-                            "status": "verified"
-                        }
+                        data["verified_at"] = datetime.now().isoformat(),
+                        payload=data,
+                        status="verified"
                     )
             if ok:
                 st.success(f"✅ {title} verified.")
@@ -1279,12 +1275,10 @@ if role == "verifier":
             ok, _ = upsert_activity(
                         activity_id=st.session_state.current_activity_id,
                         user_id=st.session_state["username"],
-                        data={
-                            **st.session_state.form_data,
-                            "verifier_comment": notes,
-                            "rejected_at": datetime.now().isoformat(),
-                            "status": "rejected"
-                        }
+                        data["verifier_comment"] = notes,
+                        data["rejected_at"] = datetime.now().isoformat(),
+                        payload=data,
+                        status="rejected"
                     )
             if ok:
                 st.error(f"❌ Rejected: {title}")
