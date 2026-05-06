@@ -1254,14 +1254,14 @@ if role == "verifier":
                     "revision_requested_at": datetime.now().isoformat(),
                     "status": "revision_requested"
                 }
-            save_form(
-                activity_id=activity_id,
-                username=username,
-                data=data
-            )
+            # save_form(
+            #     activity_id=activity_id,
+            #     username=username,
+            #     data=data
+            # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=username,
+                    user_id=user_id,
                     payload=data,
                     status="revision_requested",
                 )
@@ -1279,14 +1279,14 @@ if role == "verifier":
                     "verified_at": datetime.now().isoformat(),
                     "status": "verified"
             }
-            save_form(
-                activity_id=activity_id,
-                username=username,
-                data=data
-            )
+            # save_form(
+            #     activity_id=activity_id,
+            #     username=username,
+            #     data=data
+            # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=username,
+                    user_id=user_id,
                     payload=data,
                     status="verified",
                 )
@@ -1304,14 +1304,14 @@ if role == "verifier":
                     "rejected_at": datetime.now().isoformat(),
                     "status": "rejected"
             }
-            save_form(
-                activity_id=activity_id,
-                username=username,
-                data=data
-            )
+            # save_form(
+            #     activity_id=activity_id,
+            #     username=username,
+            #     data=data
+            # )
             upsert_activity(
                     activity_id=activity_id,
-                    user_id=username,
+                    user_id=user_id,
                     payload=data,
                     status="rejected",
                 )
