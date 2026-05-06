@@ -1237,6 +1237,12 @@ with col_form:
 # status = st.session_state.form_data.get("status", "draft")
 
 with col_verif:
+     st.markdown(
+        """
+        <div style="position: sticky; top: 20px;">
+        """,
+        unsafe_allow_html=True
+    )
     role = st.session_state.get("role", "user")
     # status = st.session_state.form_data.get("status", "draft")
 
@@ -1293,6 +1299,8 @@ with col_verif:
             )
             st.warning("Rejected")
             st.rerun()
+            
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 # if role == "verifier":
