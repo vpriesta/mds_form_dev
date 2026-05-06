@@ -1245,8 +1245,8 @@ if role == "verifier":
     col1, col2, col3 = st.columns (3)
     with col1:
         if st.button("📝 Request Revision"):
-            activity_id=st.session_state.current_activity_id,
-            username=st.session_state["username"],
+            activity_id=st.session_state.current_activity_id
+            username=st.session_state["username"]
             data={
                     **st.session_state.form_data,
                     "verifier_comment": notes,
@@ -1270,8 +1270,8 @@ if role == "verifier":
 
     with col2:
         if st.button("✅ Accept"):
-            activity_id=st.session_state.current_activity_id,
-            username=st.session_state["username"],
+            activity_id=st.session_state.current_activity_id
+            username=st.session_state["username"]
             data={
                     **st.session_state.form_data,
                     # "verifier_comment": notes,
@@ -1295,8 +1295,8 @@ if role == "verifier":
 
     with col3:
         if st.button("❌ Reject"):
-            activity_id=st.session_state.current_activity_id,
-            username=st.session_state["username"],
+            activity_id=st.session_state.current_activity_id
+            username=st.session_state["username"]
             data={
                     **st.session_state.form_data,
                     "verifier_comment": notes,
