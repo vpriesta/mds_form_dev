@@ -1257,7 +1257,7 @@ if role == "verifier":
                 }
             )
             upsert_activity(
-                    activity_id=activity_id,
+                    activity_id=st.session_state.current_activity_id,
                     user_id=act["user_id"],
                     payload=data,
                     status="revision_requested",
@@ -1279,7 +1279,7 @@ if role == "verifier":
                 }
             )
             upsert_activity(
-                    activity_id=activity_id,
+                    activity_id=st.session_state.current_activity_id,
                     user_id=act["user_id"],
                     payload=data,
                     status="verified",
@@ -1301,7 +1301,7 @@ if role == "verifier":
                 }
             )
             upsert_activity(
-                    activity_id=activity_id,
+                    activity_id=st.session_state.current_activity_id,
                     user_id=act["user_id"],
                     payload=data,
                     status="rejected",
