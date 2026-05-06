@@ -1232,62 +1232,121 @@ if st.button("📤 Submit", disabled = is_readonly):
         st.error("❌ Submit gagal.")
 
 role = st.session_state.get("role", "user")
+status = st.session_state.form_data.get("status", "draft")
+
 if role == "verifier":
-    with st.sidebar:
-        st.markdown("### 🔍 Verifikasi")
+    st.divider()
+    st.subheader("🔍 Verifikasi")
 
-        notes = st.text_area(
-            "Komentar",
-            value=st.session_state.form_data.get("verifier_comment", "")
-        )
-
+    notes = st.text_area(
+                "Komentar",
+                value=st.session_state.form_data.get("verifier_comment", "")
+            )
+    col1, col2, col3 = st.columns (3)
+    with col1:
         if st.button("📝 Request Revision"):
-            data["verifier_comment"] = notes
-            data["revision_requested_at"] = datetime.now().isoformat()
-            data["status"] = "revision_requested"
-            ok, _ = upsert_activity(
-                        activity_id=st.session_state.current_activity_id,
-                        user_id=st.session_state["username"],
-                        payload=st.session_state.form_data,
-                        status="revision_requested",
-                        
-                    )
-            if ok:
-                st.session_state.form_data["status"] = "revision_requested"
-                st.warning(f"📝 Sent back for revision")
-                st.rerun()
-            else:
-                st.error("❌ Failed to update revision status.")
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"]
+                data={
+                        **st.session_state.form_data,
+                        "verifier_comment": notes,
+                        # "verified_by": st.session_state["username"],
+                        "revision_requested_at": datetime.now().isoformat(),
+                        "status": "revision_requested"
+                }
+            )
+            st.warning(f"📝 Sent back for revision")
+            st.rerun()
 
+    with col2:
         if st.button("✅ Accept"):
-            data["verified_at"] = datetime.now().isoformat()
-            data["status"] = "verified"
-            ok, _ = upsert_activity(
-                        activity_id=st.session_state.current_activity_id,
-                        user_id=st.session_state["username"],
-                        payload=st.session_state.form_data,
-                        status="verified"
-                    )
-            if ok:
-                st.session_state.form_data["status"] = "verified"
-                st.success(f"✅ {title} verified.")
-                st.rerun()
-            else:
-                st.error("❌ Failed to verify.")
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"]
+                data={
+                        **st.session_state.form_data,
+                        # "verifier_comment": notes,
+                        "verified_by": st.session_state["username"],
+                        "verified_at": datetime.now().isoformat(),
+                        "status": "verified"
+                }
+            )
+            st.warning(f"✅ {title} verified")
+            st.rerun()
 
+    with col3:
         if st.button("❌ Reject"):
-            data["verifier_comment"] = notes,
-            data["rejected_at"] = datetime.now().isoformat()
-            data["status"] = "rejected"
-            ok, _ = upsert_activity(
-                        activity_id=st.session_state.current_activity_id,
-                        user_id=st.session_state["username"],
-                        payload=st.session_state.form_data,
-                        status="rejected"
-                    )
-            if ok:
-                st.session_state.form_data["status"] = "rejected"
-                st.error(f"❌ Rejected: {title}")
-                st.rerun()
-            else:
-                st.error("❌ Failed to reject the activity.")
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"]
+                data={
+                        **st.session_state.form_data,
+                        "verifier_comment": notes,
+                        # "verified_by": st.session_state["username"],
+                        "rejected_at": datetime.now().isoformat(),
+                        "status": "rejected"
+                }
+            )
+            st.warning(f"❌ Rejected: {title}")
+            st.rerun()
+
+# if role == "verifier":
+#     with st.sidebar:
+#         st.markdown("### 🔍 Verifikasi")
+
+#         notes = st.text_area(
+#             "Komentar",
+#             value=st.session_state.form_data.get("verifier_comment", "")
+#         )
+
+#         if st.button("📝 Request Revision"):
+#             data["verifier_comment"] = notes
+#             data["revision_requested_at"] = datetime.now().isoformat()
+#             data["status"] = "revision_requested"
+#             ok, _ = upsert_activity(
+#                         activity_id=st.session_state.current_activity_id,
+#                         user_id=st.session_state["username"],
+#                         payload=st.session_state.form_data,
+#                         status="revision_requested",
+                        
+#                     )
+#             if ok:
+#                 st.session_state.form_data["status"] = "revision_requested"
+#                 st.warning(f"📝 Sent back for revision")
+#                 st.rerun()
+#             else:
+#                 st.error("❌ Failed to update revision status.")
+
+#         if st.button("✅ Accept"):
+#             data["verified_at"] = datetime.now().isoformat()
+#             data["status"] = "verified"
+#             ok, _ = upsert_activity(
+#                         activity_id=st.session_state.current_activity_id,
+#                         user_id=st.session_state["username"],
+#                         payload=st.session_state.form_data,
+#                         status="verified"
+#                     )
+#             if ok:
+#                 st.session_state.form_data["status"] = "verified"
+#                 st.success(f"✅ {title} verified.")
+#                 st.rerun()
+#             else:
+#                 st.error("❌ Failed to verify.")
+
+#         if st.button("❌ Reject"):
+#             data["verifier_comment"] = notes,
+#             data["rejected_at"] = datetime.now().isoformat()
+#             data["status"] = "rejected"
+#             ok, _ = upsert_activity(
+#                         activity_id=st.session_state.current_activity_id,
+#                         user_id=st.session_state["username"],
+#                         payload=st.session_state.form_data,
+#                         status="rejected"
+#                     )
+#             if ok:
+#                 st.session_state.form_data["status"] = "rejected"
+#                 st.error(f"❌ Rejected: {title}")
+#                 st.rerun()
+#             else:
+#                 st.error("❌ Failed to reject the activity.")
