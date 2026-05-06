@@ -1248,7 +1248,7 @@ if role == "verifier":
         key="verifier_comment"
     )
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     with col1:
         if st.button("✅ Accept"):
@@ -1268,6 +1268,21 @@ if role == "verifier":
             st.rerun()
 
     with col2:
+        if st.button("📝 Request Revision"):
+            save_form(
+                activity_id=st.session_state.current_activity_id,
+                username=st.session_state["username"],
+                data={
+                    **st.session_state.form_data,
+                    "verifier_comment": notes,
+                    "revision_requested_at": datetime.now().isoformat(),
+                    "status": "revision_requested"
+                }
+            )
+            st.warning("Revision Request Sent 📝")
+            st.rerun()
+
+    with col3:
         if st.button("❌ Reject"):
             save_form(
                 activity_id=st.session_state.current_activity_id,
