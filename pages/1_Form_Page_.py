@@ -1233,7 +1233,7 @@ with col_form:
         else: 
             st.error("❌ Submit gagal.")
     
-    role = st.session_state.get("role", "user")
+    # role = st.session_state.get("role", "user")
 # status = st.session_state.form_data.get("status", "draft")
 
 with col_verif:
@@ -1300,7 +1300,7 @@ with col_verif:
             st.warning("Rejected")
             st.rerun()
             
-        st.markdown("</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 # if role == "verifier":
