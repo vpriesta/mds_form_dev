@@ -1245,20 +1245,23 @@ if role == "verifier":
     col1, col2, col3 = st.columns (3)
     with col1:
         if st.button("📝 Request Revision"):
-            save_form(
-                activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"],
-                data={
-                        **st.session_state.form_data,
-                        "verifier_comment": notes,
-                        # "verified_by": st.session_state["username"],
-                        "revision_requested_at": datetime.now().isoformat(),
-                        "status": "revision_requested"
+            activity_id=st.session_state.current_activity_id,
+            username=st.session_state["username"],
+            data={
+                    **st.session_state.form_data,
+                    "verifier_comment": notes,
+                    # "verified_by": st.session_state["username"],
+                    "revision_requested_at": datetime.now().isoformat(),
+                    "status": "revision_requested"
                 }
+            save_form(
+                activity_id=activity_id,
+                username=username,
+                data=data
             )
             upsert_activity(
-                    activity_id=st.session_state.current_activity_id,
-                    user_id=act["user_id"],
+                    activity_id=activity_id,
+                    user_id=username,
                     payload=data,
                     status="revision_requested",
                 )
@@ -1267,20 +1270,23 @@ if role == "verifier":
 
     with col2:
         if st.button("✅ Accept"):
+            activity_id=st.session_state.current_activity_id,
+            username=st.session_state["username"],
+            data={
+                    **st.session_state.form_data,
+                    # "verifier_comment": notes,
+                    "verified_by": st.session_state["username"],
+                    "verified_at": datetime.now().isoformat(),
+                    "status": "verified"
+            }
             save_form(
-                activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"],
-                data={
-                        **st.session_state.form_data,
-                        # "verifier_comment": notes,
-                        "verified_by": st.session_state["username"],
-                        "verified_at": datetime.now().isoformat(),
-                        "status": "verified"
-                }
+                activity_id=activity_id,
+                username=username,
+                data=data
             )
             upsert_activity(
-                    activity_id=st.session_state.current_activity_id,
-                    user_id=act["user_id"],
+                    activity_id=activity_id,
+                    user_id=username,
                     payload=data,
                     status="verified",
                 )
@@ -1289,20 +1295,23 @@ if role == "verifier":
 
     with col3:
         if st.button("❌ Reject"):
+            activity_id=st.session_state.current_activity_id,
+            username=st.session_state["username"],
+            data={
+                    **st.session_state.form_data,
+                    "verifier_comment": notes,
+                    # "verified_by": st.session_state["username"],
+                    "rejected_at": datetime.now().isoformat(),
+                    "status": "rejected"
+            }
             save_form(
-                activity_id=st.session_state.current_activity_id,
-                username=st.session_state["username"],
-                data={
-                        **st.session_state.form_data,
-                        "verifier_comment": notes,
-                        # "verified_by": st.session_state["username"],
-                        "rejected_at": datetime.now().isoformat(),
-                        "status": "rejected"
-                }
+                activity_id=activity_id,
+                username=username,
+                data=data
             )
             upsert_activity(
-                    activity_id=st.session_state.current_activity_id,
-                    user_id=act["user_id"],
+                    activity_id=activity_id,
+                    user_id=username,
                     payload=data,
                     status="rejected",
                 )
