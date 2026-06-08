@@ -1242,11 +1242,13 @@ if role == "verifier":
                 "Komentar",
                 value=st.session_state.form_data.get("verifier_comment", "")
             )
-    id_mskeg = st.text_area(
-                "Input ID Database",
-                value=st.session_state.form_data.get("id_mskeg", ""),
-                placeholder="Wajib diisi. Silahkan hubungi staf Prakom atau Data Engineer untuk mendapatkan ID Database"
-            )
+    # id_mskeg = st.text_area(
+    #             "Input ID Database",
+    #             value=st.session_state.form_data.get("id_mskeg", ""),
+    #             placeholder="Wajib diisi. Silahkan hubungi staf Prakom atau Data Engineer untuk mendapatkan ID Database"
+    #         )
+    id_mskeg = st.text_input("Masukkan ID Database", value=st.session_state.form_data.get("id_mskeg", ""),
+                             placeholder="Wajib diisi. Silahkan hubungi staf Prakom atau Data Engineer untuk mendapatkan ID Database", disabled = is_readonly)
     col1, col2, col3 = st.columns (3)
     with col1:
         if st.button("📝 Request Revision"):
